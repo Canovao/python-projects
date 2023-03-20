@@ -1,3 +1,11 @@
+# My exclusions
+*.idea
+*.db
+*.sql
+*.csv
+*.txt
+*.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
