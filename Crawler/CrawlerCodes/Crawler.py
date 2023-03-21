@@ -15,7 +15,7 @@ from LinksCleaner import clearLinks
 from Feeder import feedCrawler
 from StoreError import storeError
 
-# initialCrawl = ["https://www.wikipedia.org", "https://google.com", "https://pt.wikipedia.org/wiki/Laranja"]
+# initialCrawl = ["https://www.wikipedia.org", "https://google.com"]
 
 now = datetime.now()
 today = date.today()
