@@ -1,13 +1,14 @@
-import requests
-import csv
 from bs4 import BeautifulSoup
-import json
-import re
-import string
 from datetime import datetime
 from datetime import date
 from tqdm import tqdm
+from time import sleep
 import threading
+import json
+import re
+import string
+import requests
+import csv
 
 # My functions/classes
 from StoreCrawl import storeCrawl
@@ -106,6 +107,8 @@ else:
     thread1.start()
     
     thread1.join()
+
+sleep(1)
 
 storeCrawl()
 
