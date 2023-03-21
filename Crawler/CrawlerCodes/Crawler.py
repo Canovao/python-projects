@@ -29,7 +29,10 @@ storeAndFeed = True
 with open('Crawler\\CrawlData\\LinksToCrawl.json', 'r', encoding='latin-1') as file:
     pages = json.load(file)
     
-    pageAmount = int(input(f"Insert how many link you wanna crawl [max {len(pages)}]: "))
+    pageAmount = 0
+    
+    if len(pages) > 100:
+        pageAmount = int(input(f"Insert how many link you wanna crawl [max {len(pages)}]: "))
    
     if pageAmount > 0:
         file.close()
