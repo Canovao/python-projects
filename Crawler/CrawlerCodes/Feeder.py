@@ -27,3 +27,6 @@ def feedCrawler():
     conn.close()
         
     print("Crawler fed!")
+
+if __name__ == "__main__":
+    feedCrawler()
