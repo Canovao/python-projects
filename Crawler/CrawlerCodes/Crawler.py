@@ -35,19 +35,21 @@ csvFile.writerow(['From Link', "Gotten Links"])
 
 storeAndFeed = True
 
-with open('Crawler\\CrawlData\\LinksToCrawl.json', 'w+r', encoding='latin-1') as file:
+with open('Crawler\\CrawlData\\LinksToCrawl.json', 'r', encoding='latin-1') as file:
     pages = json.load(file)
    
     if args.arg1 > 0:
         if args.arg1 > len(pages):
             args.arg1 = len(pages)
         
-        json.dump(pages[args.arg1:], file)
+        file.close()
+        with open('Crawler\\CrawlData\\LinksToCrawl.json', 'w', encoding='latin-1') as jsonFile:
+            json.dump(pages[args.arg1:], jsonFile)
+            jsonFile.close()
         
         pages = pages[:args.arg1]
         storeAndFeed = False
        
-    file.close()
 
 def crawl(pageList: list(), threadNum: int = 0):
     global csvFile
