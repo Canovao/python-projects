@@ -31,7 +31,7 @@ with open('Crawler\\CrawlData\\LinksToCrawl.json', encoding='latin-1') as file:
    pages = json.load(file)
    file.close()
 
-def crawl(pageList: list(), threadNum: int):
+def crawl(pageList: list(), threadNum: int = 0):
     global csvFile
     
     for i in tqdm(range(0, len(pageList)), ncols = 150, desc =f"Thread {threadNum} / Crawled pages: "):
@@ -102,11 +102,7 @@ if len(pages) >= 12:
     thread3.join()
     thread4.join()
 else:
-    thread1 = threading.Thread(target=crawl, args=(pages,1,))
-    
-    thread1.start()
-    
-    thread1.join()
+    crawl(pages)
 
 sleep(1)
 
