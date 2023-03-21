@@ -5,6 +5,10 @@
 *.csv
 *.txt
 *.json
+CrawlData/*
+OldCrawls/*
+Errors/*
+UnstoredCrawls/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
