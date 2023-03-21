@@ -71,4 +71,3 @@ def storeCrawl():
 
 if __name__ == "__main__":
     storeCrawl()
-    feedCrawler()
