@@ -9,6 +9,7 @@ import re
 import string
 import requests
 import csv
+import argparse
 
 # My functions/classes
 from StoreCrawl import storeCrawl
@@ -17,6 +18,11 @@ from Feeder import feedCrawler
 from StoreError import storeError
 
 # initialCrawl = ["https://www.wikipedia.org", "https://google.com"]
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--crawlSize", help="How much links the Crawler will crawl", type=int)
+args = parser.parse_args()
 
 now = datetime.now()
 today = date.today()
@@ -27,9 +33,21 @@ csvPath = 'Crawler\\UnstoredCrawls\\CrawlerLinks'+str(today)+'--'+current_time+'
 csvFile = csv.writer(open(csvPath, 'w', encoding="utf-8"))
 csvFile.writerow(['From Link', "Gotten Links"])
 
-with open('Crawler\\CrawlData\\LinksToCrawl.json', encoding='latin-1') as file:
-   pages = json.load(file)
-   file.close()
+storeAndFeed = True
+
+with open('Crawler\\CrawlData\\LinksToCrawl.json', 'w+r', encoding='latin-1') as file:
+    pages = json.load(file)
+   
+    if args.arg1 > 0:
+        if args.arg1 > len(pages):
+            args.arg1 = len(pages)
+        
+        json.dump(pages[args.arg1:], file)
+        
+        pages = pages[:args.arg1]
+        storeAndFeed = False
+       
+    file.close()
 
 def crawl(pageList: list(), threadNum: int = 0):
     global csvFile
@@ -104,8 +122,9 @@ if len(pages) >= 12:
 else:
     crawl(pages)
 
-sleep(1)
+if storeAndFeed == True:
+    sleep(1)
 
-storeCrawl()
+    storeCrawl()
 
-feedCrawler()
+    feedCrawler()
