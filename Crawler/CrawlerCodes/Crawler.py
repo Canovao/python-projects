@@ -30,14 +30,6 @@ with open('Crawler\\CrawlData\\LinksToCrawl.json', encoding='latin-1') as file:
    pages = json.load(file)
    file.close()
 
-tamanhoParte = len(pages) // 4
-parte1 = pages[0:tamanhoParte]
-parte2 = pages[tamanhoParte:tamanhoParte*2]
-parte3 = pages[tamanhoParte*2:tamanhoParte*3]
-parte4 = pages[tamanhoParte*3:len(pages)]
-
-semaforo = threading.Semaphore(1)
-
 def crawl(pageList: list(), threadNum: int):
     global csvFile
     
@@ -84,20 +76,36 @@ def crawl(pageList: list(), threadNum: int):
             storeError(error, 'Generic exception: ')
             continue
 
-thread1 = threading.Thread(target=crawl, args=(parte1,1,))
-thread2 = threading.Thread(target=crawl, args=(parte2,2,))
-thread3 = threading.Thread(target=crawl, args=(parte3,3,))
-thread4 = threading.Thread(target=crawl, args=(parte4,4,))
+semaforo = threading.Semaphore(1)
 
-thread1.start()
-thread2.start()
-thread3.start()
-thread4.start()
+if len(pages) >= 12:
+    tamanhoParte = len(pages) // 4
+    
+    parte1 = pages[0:tamanhoParte]
+    parte2 = pages[tamanhoParte:tamanhoParte*2]
+    parte3 = pages[tamanhoParte*2:tamanhoParte*3]
+    parte4 = pages[tamanhoParte*3:len(pages)]
+    
+    thread1 = threading.Thread(target=crawl, args=(parte1,1,))
+    thread2 = threading.Thread(target=crawl, args=(parte2,2,))
+    thread3 = threading.Thread(target=crawl, args=(parte3,3,))
+    thread4 = threading.Thread(target=crawl, args=(parte4,4,))
 
-thread1.join()
-thread2.join()
-thread3.join()
-thread4.join()
+    thread1.start()
+    thread2.start()
+    thread3.start()
+    thread4.start()
+
+    thread1.join()
+    thread2.join()
+    thread3.join()
+    thread4.join()
+else:
+    thread1 = threading.Thread(target=crawl, args=(pages,1,))
+    
+    thread1.start()
+    
+    thread1.join()
 
 storeCrawl()
 
