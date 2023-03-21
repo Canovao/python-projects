@@ -3,6 +3,7 @@ import sqlite3
 import sys
 import glob
 import tqdm
+from Feeder import feedCrawler
 
 maxInt = sys.maxsize
 
@@ -67,3 +68,7 @@ def storeCrawl():
 
         conn.commit()
         print("CSV data stored!")
+
+if __name__ == "__main__":
+    storeCrawl()
+    feedCrawler()
