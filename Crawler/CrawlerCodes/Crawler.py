@@ -41,16 +41,16 @@ def crawl(pageList: list(), threadNum: int = 0):
             try:
                 page = requests.get(item)
             except requests.exceptions.ConnectTimeout as error:
-                storeError(error, 'Conexion timeout ERROR: ')
+                storeError(error, 'Conexion timeout ERROR: ', threadNum)
                 continue
             except requests.exceptions.ConnectionError as error:
-                storeError(error, 'Conexion ERROR: ')
+                storeError(error, 'Conexion ERROR: ', threadNum)
                 continue
             except requests.exceptions.ReadTimeout as error:
-                storeError(error, 'Read timeout ERROR: ')
+                storeError(error, 'Read timeout ERROR: ', threadNum)
                 continue
             except requests.exceptions.InvalidURL as error:
-                storeError(error, 'Invalid URL exception: ')
+                storeError(error, 'Invalid URL exception: ', threadNum)
                 continue
                 
             soup = BeautifulSoup(page.text, 'html.parser')
