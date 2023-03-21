@@ -31,8 +31,6 @@ def storeCrawl():
                     rows.append(row)
             csvFile.close()
         
-        print(csvData, rows)
-        
         if len(rows) == 0:
             print("No data to store!")
             continue
