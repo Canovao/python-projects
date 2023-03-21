@@ -30,10 +30,6 @@ def storeCrawl():
                 if len(row) != 0:
                     rows.append(row)
             csvFile.close()
-        
-        if len(rows) == 0:
-            print("No data to store!")
-            continue
 
         del rows[0]
 
