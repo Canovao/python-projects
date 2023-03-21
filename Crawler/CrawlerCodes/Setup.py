@@ -1,17 +1,17 @@
 import sqlite3
 import os
 
-nome_pasta = "CrawlData"
-caminho_pasta = "Crawler\\" + nome_pasta
+caminho_pasta = "Crawler\\"
 
-try:
-    os.mkdir(caminho_pasta)
-    print("Folder criado com sucesso!")
-except FileExistsError:
-    print("Folder já existe!")
-except Exception as e:
-    print("Erro ao criar folder:", e)
-    exit(-1)
+for z in ['CrawlData', 'Errors', 'OldCrawls', 'UnstoredCrawls']:
+    try:
+        os.mkdir(caminho_pasta+z)
+        print("Folder criado com sucesso!")
+    except FileExistsError:
+        print("Folder já existe!")
+    except Exception as e:
+        print("Erro ao criar folder:", e)
+        exit(-1)
 
 with open('Crawler\\CrawlData\\LinksToCrawl.json', 'w', encoding='latin-1') as jsonFile:
     jsonFile.close()
