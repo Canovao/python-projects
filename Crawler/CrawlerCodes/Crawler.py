@@ -37,12 +37,14 @@ with open('Crawler\\CrawlData\\LinksToCrawl.json', 'r', encoding='latin-1') as f
     if pageAmount > 0:
         file.close()
         
+        if pageAmount != len(pages):
+            storeAndFeed = False
+        
         with open('Crawler\\CrawlData\\LinksToCrawl.json', 'w', encoding='latin-1') as jsonFile:
             json.dump(pages[pageAmount:], jsonFile)
             jsonFile.close()
         
         pages = pages[:pageAmount]
-        storeAndFeed = False
 
 csvFile = csv.writer(open(csvPath, 'w', encoding="utf-8"))
 csvFile.writerow(['From Link', "Gotten Links"])

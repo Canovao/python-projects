@@ -11,6 +11,8 @@ def clearLinks(fromLink: str, dirtyLinks: list):
             
             if link.startswith("https:") or link.startswith("http:"):
                 cleanLinks.append(link)
+            elif link[0] == " ":
+                cleanLinks.append(link[1:])
             else:
                 if link != "/":
                     if link[0] == "/":
