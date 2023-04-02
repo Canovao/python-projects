@@ -41,7 +41,7 @@ with open('Crawler\\CrawlData\\LinksToCrawl.json', 'r', encoding='latin-1') as f
             storeAndFeed = False
         
         with open('Crawler\\CrawlData\\LinksToCrawl.json', 'w', encoding='latin-1') as jsonFile:
-            json.dump(pages[pageAmount:], jsonFile)
+            json.dump(pages[pageAmount:], jsonFile, indent=4)
             jsonFile.close()
         
         pages = pages[:pageAmount]
@@ -70,6 +70,9 @@ def crawl(pageList: list(), threadNum: int = 0):
             except requests.exceptions.InvalidURL as error:
                 storeError(error, 'Invalid URL exception: ', threadNum)
                 continue
+            except Exception as error:
+                storeError(error, 'Generic request exception: ', threadNum)
+                continue
                 
             soup = BeautifulSoup(page.text, 'html.parser')
 
@@ -86,13 +89,13 @@ def crawl(pageList: list(), threadNum: int = 0):
                 csvFile.writerow([item, cleanLinks])
                 semaforo.release()
             except UnicodeEncodeError as error:
-                storeError(error, "Unicode Encode Error: ")
+                storeError(error, "Unicode Encode Error: ", threadNum)
                 continue
         except TypeError as error:
-            storeError(error, 'Type error: ')
+            storeError(error, 'Type error: ', threadNum)
             continue
-        except Exception as exception:
-            storeError(error, 'Generic exception: ')
+        except Exception as error:
+            storeError(error, 'Generic exception: ', threadNum)
             continue
 
 semaforo = threading.Semaphore(1)
