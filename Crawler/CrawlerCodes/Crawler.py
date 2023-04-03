@@ -82,7 +82,7 @@ def crawl(pageList: list(), threadNum: int = 0):
                 if tag.get('href') != None or tag.get('href') != "#":
                     links.append(tag.get('href'))
 
-            cleanLinks = clearLinks(item, links)
+            cleanLinks = clearLinks(links, item)
             
             try:
                 semaforo.acquire()
