@@ -10,7 +10,7 @@ with open('Crawler\\CrawlData\\LinksToCrawl.json', 'r', encoding='latin-1') as f
     
 size = len(pages)
 
-print(f'Links loaded! Cleaning [{size}] links')
+print(f'Links loaded!  Cleaning [{size}] links')
 
 pages = clearLinks(pages)
 
